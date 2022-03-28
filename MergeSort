@@ -1,0 +1,83 @@
+import java.util.*;
+import java.io.*;
+
+class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] arr=new int[n];
+        for(int i=0;i<n;i++)
+        {
+            arr[i]=sc.nextInt();
+        }
+        mergeSort(arr, 0, n-1);
+        for(int i=0;i<n;i++)
+        {
+           System.out.print(arr[i]+" ");
+        }
+    }
+
+    public static void mergeSort(int[] arr, int start, int end)
+    {
+        
+        if(start<end)
+        {
+            int mid=start+(end-start)/2;
+            mergeSort(arr,start,mid);
+            mergeSort(arr,mid+1, end);
+            merge(arr,start,mid,end);
+        }
+    } 
+
+    public static void merge(int[] ans,int start, int mid, int end)
+    {
+        int asize=mid-start+1;
+        int bsize=end-mid;
+        int[] arr=new int[asize];
+        int[] brr=new int[bsize];
+        int k=0;
+        for(int i=start; i<=mid;i++)
+        {
+            arr[k]=ans[i];
+            k++;
+        }
+        k=0;
+        for(int i=mid+1;i<=end;i++)
+        {
+            brr[k]=ans[i];
+            k++;
+    
+        }
+        k=start;
+        int i=0, j=0;
+        while(i<asize && j<bsize)
+        {
+            if(arr[i]<brr[j])
+            {
+                ans[k]=arr[i];
+                i++;
+                k++;
+            }
+            else
+            {
+                ans[k]=brr[j];
+                j++;
+                k++;
+            }
+        }
+        while(i<asize)
+        {
+            ans[k]=arr[i];
+            i++;
+            k++;
+        }
+        while(j<bsize)
+        {
+            ans[k]=brr[j];
+            j++;
+            i++;
+        }
+    }
+}
